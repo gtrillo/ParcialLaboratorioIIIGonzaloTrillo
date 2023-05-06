@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+  class Persona {
+    #idPersona;
+    #nombre;
+    #apellido;
+    #edad;
+    static #contador = 0;
+        
+    constructor (nombre, apellido, edad) {
+        this.#nombre = nombre;
+        this.#apellido = apellido;
+        this.#edad = edad;
+        this.#idPersona = ++Persona.#contador; 
+    }
+
+    toString() {
+        return "nombre: " + this.#nombre + " apellido: " + this.#apellido + " edad: " + this.#edad;
+    }
+
+}
+
+class Heroe extends Persona {
+    #alterEgo;
+    #ciudad;
+    #publicado;
+
+    constructor(nombre, apellido, edad, alterEgo, ciudad, publicado) {
+        super(nombre, apellido, edad);
+        this.#alterEgo = alterEgo;
+        this.#ciudad = ciudad;
+        this.#publicado = publicado;
+    }
+
+    toString() {
+        return super.toString() + " alter ego: " + this.#alterEgo + " ciudad: " + this.#ciudad + " publicado: " + this.#publicado;
+    }
+}
+
+class Villano extends Persona {
+    #enemigo;
+    #robos;
+    #asesinatos;
+
+    constructor(nombre, apellido, edad, enemigo, robos, asesinatos) {
+        super(nombre, apellido, edad);
+        this.#enemigo = enemigo;
+        this.#robos = robos;
+        this.#asesinatos = asesinatos;
+    }
+
+    toString() {
+        return super.toString() + " enemigo: " + this.#enemigo + " robos: " + this.#robos + " asesinatos: " + this.#asesinatos;
+    }
+
+}
+
+const datos = '[{"id":1, "nombre":"Clark", "apellido":"Kent", "edad":45, "alterego":"Superman", "ciudad":"Metropolis","publicado":2002},{"id":2, "nombre":"Bruce", "apellido":"Wayne", "edad":35, "alterego":"Batman", "ciudad":"Gotica","publicado":20012},{"id":3, "nombre":"Bart", "apellido":"Alen", "edad":30, "alterego":"Flash", "ciudad":"Central","publicado":2017},{"id":4, "nombre":"Lex", "apellido":"Luthor", "edad":18, "enemigo":"Superman", "robos":500,"asesinatos":7},{"id":5, "nombre":"Harvey", "apellido":"Dent", "edad":20, "enemigo":"Batman", "robos":750,"asesinatos":2},{"id":666, "nombre":"Celina", "apellido":"kyle", "edad":23, "enemigo":"Batman", "robos":25,"asesinatos":1}]';
+
+
+var personas = JSON.parse(datos);
+
+var arrayPersonas = [];
+
+personas.forEach(function(persona) {
+  var nuevoPersonaje;
+
+  if (persona.hasOwnProperty("alterego")) {
+    nuevoPersonaje = new Heroe(persona.id, persona.nombre, persona.apellido, persona.edad, persona.ciudad, persona.publicado, persona.alterego);
+  } else if (persona.hasOwnProperty("enemigo")) {
+    nuevoPersonaje = new Villano(persona.id, persona.nombre, persona.apellido, persona.edad, persona.enemigo, persona.robos, persona.asesinatos);
+  }
+
+  arrayPersonas.push(nuevoPersonaje);
+  console.log(nuevoPersonaje.toString())
+});
+
+
+
+});
+    </script>
+ <form id="formulario">
+    <h1>form datos</h1>
+    <div><label for="">Calcular edad promedio</label>
+     <input type="text">
+     <button>Calcular</button>
+     
+ </div>
+ <div><label for="">Mostrar Columnas</label></div>
+ <div>
+     <label>
+         <input type="checkbox" name="id" value="aceptado" checked>
+         ID
+       </label>
+       <label>
+         <input type="checkbox" name="nombre" value="aceptado" checked>
+         NOMBRE
+       </label>
+       <label>
+         <input type="checkbox" name="apellido" value="aceptado" checked>
+         APELLIDO
+       </label>
+       <label>
+         <input type="checkbox" name="edad" value="aceptado" checked>
+         EDAD
+       </label>
+       <label>
+         <input type="checkbox" name="sueldo" value="aceptado" checked>
+         ALTEREGO
+       </label>
+       <label>
+         <input type="checkbox" name="ventas" value="aceptado" checked>
+         CIUDAD
+       </label>
+       <label>
+         <input type="checkbox" name="compras" value="aceptado" checked>
+         PUBLICADO
+       </label>
+       <label>
+         <input type="checkbox" name="telefono" value="aceptado" checked>
+         ASESINATOS
+       </label>
+ </div>
+ <table id="tablapersonas">
+     <thead>
+        <tr id="tr">
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>APELLIDO</th>
+            <th>EDAD</th>
+            <th>ALTEREGO</th>
+            <th>CIUDAD</th>
+            <th>PUBLICADO</th>
+            <th>ENEMIGO</th>
+            <th>ROBOS</th>
+            <th>ASESINATOS</th>
+        </tr>
+     </thead>
+ </table>
+ </form>
+ <style>
+     th{
+            text-align: left;
+        }
+ </style>
+</body>
+</html>
